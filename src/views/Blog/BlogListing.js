@@ -35,7 +35,7 @@ function BlogListing(props) {
                           />
                           <CardBody>
                             <CardSubtitle>
-                              {post.categories[0]} |{' '}
+                              {post.parent.name} |{' '}
                               {post.createdAt.split('T')[0]}
                             </CardSubtitle>
                             <CardTitle className="h5 mb-3">

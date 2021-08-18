@@ -33,7 +33,7 @@ function SectionBlog(props) {
                         className="p-1 border"
                       />
                       <CardBody>
-                        <CardSubtitle>{post.categories[0]} | {post.createdAt.split("T")[0]}</CardSubtitle>
+                        <CardSubtitle>{post.parent.name} | {post.createdAt.split("T")[0]}</CardSubtitle>
                         <CardTitle className="h5 mb-3">{ post.title }</CardTitle>
                         <CardText>{post.summary}</CardText>
                       </CardBody>

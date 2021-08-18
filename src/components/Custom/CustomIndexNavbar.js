@@ -11,10 +11,17 @@ import {
   Container
 } from 'reactstrap';
 import {Link} from 'react-router-dom';
+import api from 'utils/api'
+import { filepath } from 'config'
+
 
 function CustomIndexNavbar() {
   const [navbarColor, setNavbarColor] = React.useState('navbar-transparent');
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
+  const [logo, setLogo] = React.useState({
+    type: '',
+    content: ''
+  })
 
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
@@ -73,11 +80,20 @@ function CustomIndexNavbar() {
       window.removeEventListener('scroll', updateNavbarColor);
     };
   });
+
+  React.useEffect(async () => {
+    await setLogo((await api.get('/logo/getEnabledLogo')).data)
+  });
+
   return (
     <Navbar className={classnames('fixed-top', navbarColor)} expand="lg">
       <Container>
         <div className="navbar-translate">
-          <Link to="/" className="navbar-brand" title="Masiaha">Masiaha</Link> 
+          <Link to="/" className="navbar-brand" title="Masiaha">
+            {
+              logo.type === "text" ? logo.content : <img src={filepath + logo.content} alt={logo.content} />
+            }
+          </Link> 
           <button
             aria-expanded={navbarCollapse}
             className={classnames('navbar-toggler navbar-toggler', {

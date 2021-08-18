@@ -8,6 +8,11 @@ function CustomFooter() {
   const [lastname, setLastname] = useState('')
   const [content, setContent] = useState('')
   const [contactInfos, setContactInfos] = useState([])
+  const [footerContent, setFooterContent] = useState({
+    title: '',
+    content: '',
+    copyright: ''
+  });
 
   const handleSubmit = () => {
     api.post('/newsletters/create', {
@@ -18,6 +23,7 @@ function CustomFooter() {
   }
   useEffect(async () => {
     await setContactInfos((await api.get('/contactInfos/getAll')).data)
+    await setFooterContent((await api.get('/footerContent/getEnabledFooterContent')).data)
   })
   return (
     <>
@@ -26,15 +32,9 @@ function CustomFooter() {
           <Row>
             <Col md={5}>
               <h2 className="title text-light">Contact Info</h2>
-              <h2 className="title custom-text-secondary mb-2">Masiaha</h2>
+              <h2 className="title custom-text-secondary mb-2">{footerContent.title}</h2>
               <p className="custom-text-secondary">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                pellentesque ex vel mauris gravida dapibus. Praesent posuere
-                velit arcu, at viverra arcu porttitor sed. Donec feugiat
-                condimentum felis interdum molestie. Sed consequat erat a ipsum
-                luctus lacinia. Duis at mattis eros, vel mattis nunc. Vestibulum
-                semper, est sed convallis vestibulum, ex justo facilisis diam,
-                at elementum
+                {footerContent.content}
               </p>
               <p className="mt-5">
                 <a href="/" className="custom-text-secondary">

@@ -21,8 +21,17 @@ import React from 'react';
 
 // reactstrap components
 import { Row, Container, Col } from 'reactstrap';
+import api from 'utils/api'
 
 function CustomFooterBar() {
+  const [footerContent, setFooterContent] = React.useState({
+    title: '',
+    content: '',
+    copyright: ''
+  });
+  React.useEffect(async () => {
+    await setFooterContent((await api.get('/footerContent/getEnabledFooterContent')).data)
+  })
   return (
     <footer className="footer custom-footer-black">
       <Container>
@@ -30,7 +39,7 @@ function CustomFooterBar() {
           <Col md={3} className="text-center">
             <div className="credits ml-auto">
               <span className="copyright custom-text-secondary">
-                © {new Date().getFullYear()} The Masiah. All Rights Reserved.
+                © {new Date().getFullYear()} {footerContent.copyright}
               </span>
             </div>
           </Col>
